@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aulas de Vuejs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app">
+        <br><br><br><br><br><br>
+        <nav-bar></nav-bar>
+        <br><br>
+        <menu-bar :items="[{ label: 'A Empresa'}, { label: 'Serviços'}]"></menu-bar>
+        </div>
+
+        <template id="navbar">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <menu-bar :items="topNav"
+                    @emit-click="getLink"
+                    ></menu-bar>
+                  
+                  <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  </form>
+                </div>
+              </nav>
+        </template>
+
+        <template id="menu">
+            <ul class="navbar-nav mr-auto">
+                <li v-for="(items, index) in items"
+                class="nav-items">
+                    <a @click.stop.prevent="emitClick(index)"
+                    class="nav-link" href='#'>{{ item.label }}</a>
+                </li>
+              </ul>      
+        </template>
+
+    <script src="https://unpkg.com/vue"></script>  
+
+    <script>
+        Vue.component('nav-bar', {
+            template: '#navbar',
+            data() {
+                return {
+                    topNav: [{ label: 'Home'}, { label: 'Link'}, { label: 'Disabled'}]
+                }
+            },
+            methods: {
+                getLink(index){
+                    alert(this.topNav[index].label);
+                }
+            }
+        });
+        Vue.component('menu-bar', {
+            template:"#menu",
+            props:{
+                items: {
+                    type: Array,
+                    required: true,
+                }
+            },
+            methods: {
+                emitClick(index) {
+                    this.$emit('emit-Click', index);
+                }
+            }
+        });
+        var app = new Vue({ 
+            el: "#app",
+
+            data: {
+                titulo: "Aulas de Vuejs",
+                
+            
+
+            }
+        });
+    </script>
+</body>
+</html>

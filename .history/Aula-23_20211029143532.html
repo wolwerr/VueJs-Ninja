@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuejs do jeito ninja</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  </head>
+  <body>
+
+    <div id="app" class="container">
+      <h1>{{ title }}</h1>
+      <router-link :to="{ name: 'rockyhorror' }">The Rocky Horror picture show</router-link><br>
+      <router-link :to="{ name: 'meangirls' }">Mean girls</router-link><br>
+
+      <router-view></router-view>
+    </div>
+
+    <template id="rockyHorror">
+      <div>
+        <h6>The Rocky Horror picture show</h6>
+        <ul>
+          <li v-for="(character, index) in characters" :key="index">{{ character.name }}</li>
+        </ul>
+      </div>
+    </template>
+
+    <template id="meanGirls">
+      <div>
+        <h6>Mean girls</h6>
+        <ul>
+          <li v-for="(character, index) in characters" :key="character.name">{{ character.name }}</li>
+        </ul>
+      </div>
+    </template>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+
+      var RockyHorror = Vue.component('rocky-horror', {
+        template: '#rockyHorror',
+        props: {
+        },
+
+        data () {
+          return {
+            characters: [
+              { name: 'Janet!' },
+              { name: 'Dr. Scott!' },
+              { name: 'Janet!' },
+              { name: 'Brad!' },
+              { name: 'Rocky!' }
+            ]
+          }
+        }
+      })
+
+      var MeanGirls = Vue.component('mean-girls', {
+        template: '#meanGirls',
+        props: {
+        },
+
+        data () {
+          return {
+            characters: [
+              { name: 'Regina' },
+              { name: 'Cady' },
+              { name: 'Gretchen' },
+              { name: 'Karen' }
+            ]
+          }
+        }
+      })
+
+      var router = new VueRouter({
+        // mode: 'history', // só funciona com um servidor
+        routes: [
+          { path: '/rocky-horror', name: 'rockyhorror', component: RockyHorror },
+          { path: '/mean-girls', name: 'meangirls', component: MeanGirls }
+        ]
+      })
+
+      var app = new Vue({
+        el: '#app',
+        router,
+        data: {
+          title: 'Vuejs do jeito ninja',
+          movie: ''
+        }
+      })
+
+      // ROUTER VIEW
+      // é onde são carregados os componentes da rota
+
+      // ROUTER LINK
+      // é tipo um a href, mas que redireciona para o servidor, não trata como um link absoluto
+
+    </script>
+  </body>
+</html>

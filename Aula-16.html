@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aulas de Vuejs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+
+        <div id="app">
+        <br><br><br>
+
+            <div class="container">
+
+                <card>
+                    <h4 slot="title" class="card-title">Card Title</h4>
+                    <template slot="text">
+
+                    <p  class="card-text">Somewhere</p>
+                    <p  class="card-text">Somewhere</p>
+
+                    </template>
+                    <a slot="action" href="#" class="btn-primary">Go Somewhere</a>
+                </card>      
+                
+                <card>
+                    <h4 slot="title" class="card-title">Brazil</h4>
+                    <template slot="text">
+
+                    <p  class="card-text">Brazil is a very good country to visit, brazilians people are very friendly. </p>
+                    <p  class="card-text">Brazil is a very good country to visit, brazilians people are very friendly. </p>
+
+                    </template>
+                    <a slot="action" href="#" class="btn-primary">Go to Brazil</a>
+                </card>   
+
+            </div>
+        </div>
+
+        <template id="card">
+            <div class="card">
+                <img class="card-img-top" src="http://via.placeholder.com/350x150" class="img-r"></img>
+                    <div class="card-block">
+                    <slot name="title"></slot>
+                    <slot name="text"></slot>
+                    <slot name="action"></slot>
+                    
+                </div>
+            </div>
+        </template>
+        <script src="https://unpkg.com/vue"></script>
+
+        <script>
+            Vue.component('card', {
+                template: "#card",
+                data() {
+                    return {
+                        title: '',
+                    }
+                },
+                
+            });
+            
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    titulo: "Vuejs do jeito ninja"
+                    
+                }
+            });
+        </script>
+    </body>
+</html>

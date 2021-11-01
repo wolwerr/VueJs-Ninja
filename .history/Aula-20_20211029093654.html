@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aulas de Vuejs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+    <div id="app">
+        <br><br><br>
+
+        <div class="container">
+        <h1 ref="title">{{ titulo }}</h1>
+
+        <component :is="transformers"></component>
+
+        <!-- <transformers v-if="movie == 'transformers'"></transformers>
+        <gameOfThrones v-if="movie == 'gameOfThrones'"></gameOfThrones> -->
+        
+        <ul ref="users">
+            <li v-for="(item, index) in users" :key="item.name">{{ item.name }}<a @click.stop.prevent='remove(index)'></a></li>
+        </ul>
+        </div>
+        </div>
+
+        <template id="transformers">
+            <div>
+                <h4>Transformers</h4>
+                <ul>
+                    <li v-for="item in transformers">{{ item.name }}</li>
+                </ul>
+            </div>
+        </template>
+
+        <template id="gameOfThrones">
+            <div>
+                <h4>GameOfThrones</h4>
+                <ul>
+                    <li v-for="item in gameOfThrones">{{ item.name }}</li>
+                </ul>
+            </div>
+        </template>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" ></script>
+
+
+    <script>
+
+        Vue.component('transformers'), {
+            transformers: [
+                {name: "Optimus Prime"},
+                {name: "Bumble Bee"},
+                {name: "Megatron"}
+            ],
+        }
+
+        Vue.component('game-of-thrones'), {
+            template: "#gameOfThrones",
+            data() {
+                return {
+                    gameOfThrones: [
+                        {name: "John Snow"},
+                        {name: "Garlatic"},
+                        {name: "Smeagol"}
+            ],
+        }
+    }
+    }
+
+    var app = new Vue({
+        el: "#app",
+
+        mounted() {
+            console.log(this.$refs.users)
+        },
+
+        data: {
+            titulo: "Aulas de Vuejs",
+            users: [
+                {name: "Emma"},
+                {name: "Sophia"},
+                {name: "Isabella"},
+            ],                        
+            movie:'game-of-thrones',
+        },
+
+        methods: {
+            remove(index) {
+                this.users.splice(index, 1);
+            }
+        }
+    
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aulas de Vuejs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0
+        }
+    </style>
+    </head>
+    <body>
+    <div id="app">
+        <br><br><br>
+
+        <div class="container">
+        <h1 ref="title">{{ titulo }}</h1>
+
+        <router-link to="/transformers">Transformers</router-link>
+        <router-link to="/gameOfThrones">Game Of Thrones</router-link>
+
+        <router-view></router-view>
+
+        </div>
+        </div>
+
+        <template id="transformers">
+            <div>
+                <h4>Transformers</h4>
+                <ul>
+                    <li v-for="item in transformers">{{ item.name }}</li>
+                </ul>
+            </div>
+        </template>
+
+        <template id="gameOfThrones">
+            <div>
+                <h4>Game of Thrones</h4>
+                <ul>
+                    <li v-for="item in gameOfThrones">{{ item.name }}</li>
+                </ul>
+            </div>
+        </template>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    
+    
+    <script>
+
+    var Transformers = Vue.component('transformers', {
+            template: '#transformers',
+            data(){
+                return {
+                transformers: [
+                {name: 'Optimus Prime'},
+                {name: 'Bumble Bee'},
+                {name: 'Megatron'}
+            ],
+        }
+    }
+}),
+
+    var GameOfThrones = Vue.component('game-Of-Thrones', {
+            template: '#gameOfThrones',
+            data() {
+                return {
+                    gameOfThrones: [
+                        {name: 'John Snow'},
+                        {name: 'Garlatic'},
+                        {name: 'Smeagol'}
+            ]
+        }
+    }
+});
+
+    var router = new VueRouter({
+        routes:[
+            { path: '/transformers', component: Transformers },
+            { path: '/gameOfThrones', component: GameOfThrones },
+        ]
+    });
+
+    var app = new Vue({
+        el: "#app",
+        router,
+
+        data: {
+            titulo: "Aulas de Vuejs",
+        }
+    });
+
+</script>
+</body>
+</html>
